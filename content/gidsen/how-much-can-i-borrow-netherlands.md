@@ -1,6 +1,6 @@
 ---
 title: "How much can I borrow? Dutch mortgage limits in 2026"
-description: How Dutch lenders work out your maximum mortgage in 2026: income, housing-cost ratio, test rate, student debt, partner income and the NHG limit. With a worked example.
+description: How Dutch lenders set your maximum mortgage in 2026: income, test rate, student debt, partner income and the NHG limit. With a worked example.
 lang: en
 twin: maximale-hypotheek
 updated: 2026-10-17

@@ -1,6 +1,6 @@
 ---
 title: "Overbidding on Dutch homes: how often and how much"
-description: How often Dutch buyers pay above asking in 2026, what happens if the valuation comes in below your offer, and how much of your own money you need. With a worked example.
+description: How often Dutch buyers pay above asking in 2026, what happens if the valuation is below your offer and how much savings you need. With an example.
 lang: en
 twin: overbieden
 updated: 2026-10-17

@@ -1,6 +1,6 @@
 ---
 title: "House-buying steps in the Netherlands, start to finish"
-description: Buying a home in the Netherlands in 2026, step by step: budget, viewings, offers and conditions, the purchase contract and cooling-off period, and the notary. With an example.
+description: Buying a home in the Netherlands in 2026, step by step: budget, viewings, offer and conditions, contract, cooling-off and notary. With an example.
 lang: en
 twin: huis-kopen-stappenplan
 updated: 2026-10-17

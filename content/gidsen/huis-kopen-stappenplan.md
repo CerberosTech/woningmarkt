@@ -1,6 +1,6 @@
 ---
 title: "Huis kopen stappenplan: van oriëntatie tot de notaris"
-description: Een huis kopen in Nederland in 2026, stap voor stap: oriëntatie, bezichtiging, bod en voorbehouden, koopovereenkomst en bedenktijd, en de notaris. Met rekenvoorbeeld.
+description: Een huis kopen in 2026, stap voor stap: oriëntatie, bezichtiging, bod en voorbehouden, koopovereenkomst, bedenktijd en notaris. Met rekenvoorbeeld.
 lang: nl
 twin: house-buying-steps-netherlands
 updated: 2026-10-17

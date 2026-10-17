@@ -176,6 +176,8 @@ function page({ lang, route, title, desc, body, sources = [], crumbs = [], schem
   const switcher = (pos = '') => both ? `<a class="lang" href="${u(route[other])}" hreflang="${other}" lang="${other}"${gc(`nav-lang-${other}${pos}`)}>${other === 'en' ? 'English' : 'Nederlands'}</a>` : '';
   const crumbHtml = crumbs.length ? `<nav class="crumbs" aria-label="${t('Kruimelpad', 'Breadcrumb')}"><ol><li><a href="${u(ROUTES.home[lang])}">${t('Home', 'Home')}</a></li>${crumbs.slice(0, -1).map(([n, p]) => `<li><a href="${u(p)}">${esc(n)}</a></li>`).join('')}<li aria-current="page">${esc(crumbs.at(-1)[0])}</li></ol></nav>` : '';
   const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google-site-verification" content="7bn98qAl45WV4Q5VrQ-9FIYiC_JNoW4Zxqb2prfntAc" />
+<meta name="msvalidate.01" content="B9A9D4CCD8BC0851FDAA9F094498CF68" />
 <title>${esc(fullTitle)}</title><meta name="description" content="${esc(fit(155, desc))}">${robots ? `<meta name="robots" content="${robots}">` : `<link rel="canonical" href="${abs(self)}">`}${alt}
 <meta name="theme-color" content="${THEME}"><meta name="color-scheme" content="light dark">
 <link rel="preload" href="${BASE}/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>

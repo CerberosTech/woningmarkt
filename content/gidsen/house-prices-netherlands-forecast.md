@@ -1,6 +1,6 @@
 ---
 title: "Dutch house price forecast 2026-2027: DNB and banks"
-description: How Dutch house prices are moving according to CBS and the Kadaster, what DNB, Rabobank and ABN AMRO expect for 2026 and 2027 (with dates) and where regional gaps lie.
+description: Dutch house prices according to CBS and the Kadaster, and what DNB, Rabobank and ABN AMRO expect for 2026 and 2027, with dates and regional gaps.
 lang: en
 twin: huizenprijzen-verwachting
 updated: 2026-10-17

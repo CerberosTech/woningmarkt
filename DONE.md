@@ -128,3 +128,102 @@ Move `data-goatcounter-click` from the `<aside>` to the outbound link. If you do
 - `node build.mjs`: `wrote 164 indexable pages (nl 82, en 82) + 404; 25 cities, 40 comparisons, 2 guides; data year 2025`.
 - `node scripts/check.mjs`: 330 page loads (165 URLs x 2 widths), 0 problems. The GoatCounter stub loaded once on every page load, and the check saw 5712 click-named elements in total. All interaction results are unchanged, for example the mortgage check case still gives € 177.573 / 24,6%.
 - Not tested: real counting on goatcounter.com. That needs the live site and the `woningmarkt` GoatCounter account.
+
+## Design pass 3
+
+Done on 2026-10-17. The whole site has a new visual design. The data rules, tests, SEO tags, hreflang, GoatCounter, click names, disclaimers and source lines are unchanged.
+
+### Results
+
+- `node --test`: 37 tests, 37 pass. 3 are new: 2 for the annuity schedule and 1 that checks that every municipality on the map has a fill.
+- `node build.mjs`: 164 indexable pages (82 NL, 82 EN) plus `404.html`. No map-code warnings.
+- `node scripts/check.mjs`: 330 page loads (165 URLs at 1440 px and 390 px). Result: 0 console errors, 0 failed requests, 0 horizontal overflow and 0 problems. The check also drives the map, both calculators, the compare tool and a chart at both widths. All results are as expected. The mortgage check case still gives € 177.573 / 24,6%.
+- Screenshots: `verify/v3/` holds 20 full-page PNGs. There are 9 pages at desktop and mobile width, plus 2 dark-mode pages:
+  - home, `kaart-selected` (`/kaart/#GM0363`), `city-amsterdam`, `maximale-hypotheek`, `kosten-koper`, `hypotheekrente`, `vergelijk-amsterdam-vs-utrecht`, `en-house-prices`, `guide-kosten-koper`;
+  - `desktop-dark-home` and `desktop-dark-city-amsterdam`.
+
+### The "white" municipalities
+
+- **Cause.** All 342 map codes (PDOK 2025) match the CBS price codes (83625NED) and the KWB codes (86165NED). No code was missing. The "white" areas came from 2 other things:
+  1. The lightest colour class (`#e8f2ee`) with white borders looked like an empty area.
+  2. The province layer for WOZ has no source figure. It was painted near-white with no explanation.
+- **Fix.** The map now uses a 7-class viridis ramp on a dark stage. A missing value gets a hatched pattern. The legend always has a "Geen data" entry with a count.
+- **Guard for later data.** The build now runs a code crosswalk. If a map code has no figures, the build looks for a CBS code with the same municipality name (for a merger or a re-coding). If it still finds no match, it shows the area hatched and logs a warning. It never fills in a value.
+- **Tests.** A site test checks that each of the 342 paths has a ramp colour or the hatch. The browser check tests every metric on both levels, and found 0 paths without a fill.
+- **Class breaks.** For the price change, the bins have a fixed break at 0. This keeps the 19 municipalities with falling prices out of the rising classes.
+
+### Design system
+
+- **Brand.**
+  - The mark is a stepped canal-house gable built from 5 chart bars. The middle bar is oranje.
+  - The wordmark is "Woningmarkt" with an "NL" tag.
+  - `src/icon.svg`, the favicon, the touch icon and `og-image.png` were made again with `scripts/make-icons.mjs`.
+- **Type.** The site uses Bricolage Grotesque, a variable font under the OFL licence. It is self-hosted in `src/fonts/bricolage.woff2` (41 KB, Latin), and the licence is in `src/fonts/OFL.txt`. The page preloads it. The scale is a major third, with tabular figures.
+- **Colour.**
+  - Night navy `#0e1a2e` for the header, the map stage, the stat bands, the results panes and the footer.
+  - Cool paper `#f5f7fa` and cobalt `#2148c9` for links and controls.
+  - Oranje `#ff7a1a` only for the mark, the map selection, the main action on dark ground, the rank badges and the source stamp.
+  - Charts and breakdowns use the Okabe-Ito colours, which are colour-blind safe.
+- **Dark mode.** The site follows `prefers-color-scheme`. The dark sections are dark in both modes.
+- **Motion.** Motion has a purpose:
+  - a sweep from west to east when the map metric changes;
+  - count-up figures;
+  - result values that tween to the new number.
+  All motion stops when `prefers-reduced-motion` is set.
+
+### Per page
+
+- **Map (home hero and `/kaart/`).** One component serves both pages.
+  - It switches between 4 metrics and 2 levels, with a fill animation.
+  - The legend shows the quantile bins with a count per bin. Hovering or tapping a bin highlights that class on the map.
+  - The tooltip shows the province and the rank.
+  - Zoom and pan work with the wheel, a drag, a pinch, the +/−/reset buttons and the keys (+, −, 0, arrows, Esc).
+  - **Drill-down.** At province level, a click on a province zooms in to it and dims the other municipalities. A crumb bar shows "Nederland / province".
+  - **Panel.** The panel shows the name, the province, a rank badge, 4 stat cards with a percentile marker and a sparkline with NL as a reference. It also has links to the city page, the compare tool and the province.
+  - **Phone.** The panel is a bottom sheet. It shows a short summary first, and you drag or tap it to open.
+  - **Home.** The wheel zooms only with Ctrl/⌘, so normal scrolling still moves the page.
+- **Home KPI tiles.** 4 tiles with count-up figures and sparklines: the NL average price, the price change, the ECB average rate and the number of homes sold. Each tile names its source.
+- **City pages.** A dark band holds:
+  - the rank badges (e.g. "#25 van 342 gemeenten op prijs", "#12 van 44 in Noord-Holland");
+  - 4 stat tiles and the local map, where labels that would overlap are left out.
+  Below the band:
+  - comparison chips (vs NL, the province and the 3 nearest cities);
+  - an interactive chart;
+  - the area bars, with a marker for the NL share;
+  - the neighbours table with inline bars.
+- **Charts.** Hover, touch or the arrow keys show a crosshair and a tooltip. The labels keep their size on a phone. Each chart still has its data table.
+- **Calculators.** Each calculator has 2 panes: the inputs on the left and the results on a dark pane on the right.
+  - Sliders and number fields stay in sync, and switches replace the checkboxes.
+  - On a phone, a result bar stays at the bottom of the screen while you fill in the form.
+  - **Mortgage.** A stacked bar shows the result by source: income, energy label and energy saving. A payment curve shows the yearly repayment and interest at the rate you enter (new module `engine/payments.mjs`, with tests).
+  - **Buying costs.** An animated donut shows the cost breakdown, with a key that has an amount per cost.
+- **Compare.**
+  - The hub has a sticky picker with a swap button and a one-line summary.
+  - Pair pages and the hub use a butterfly table with mirrored bars per row. Pair pages also have a "versus" band.
+- **Rates.** The hub has tiles for each fixed-period series and for all periods combined, each with a 24-month sparkline. The term pages and the history page use the same band.
+
+### JavaScript per page (gzip)
+
+- `site.js`: 2.7 KB, on every page.
+- `map.js`: 6.8 KB, on home and the map page.
+- The calculators: 1.7–1.9 KB each, plus the engine modules and `viz.mjs` (1.0 KB).
+- The site still has no framework and no npm dependencies.
+- The home page HTML is 85 KB gzip, because the full municipality map is inline (prebuilt, no skeleton).
+
+### Tooling changes
+
+- `scripts/check.mjs`:
+  - now tests at 1440 and 390 px;
+  - waits for the fonts and the count-ups to finish before each screenshot;
+  - writes the screenshots to `verify/v3/`;
+  - also checks the map fills, the zoom, the drill-down, the home map, the sliders, the donut, the compare swap and the chart tooltip.
+- `scripts/chrome.mjs`:
+  - has a `scheme` option for light or dark;
+  - has a `move()` method;
+  - pins the viewport-height units during full-page captures, so the screenshots keep the real layout.
+
+### Open points
+
+1. The mortgage payment curve is a gross annuity at the rate the user enters. It shows no tax effect. The page says this next to the curve.
+2. On a phone, the map page stops page scrolling over the map, as a map app does. You scroll the page with the controls above the map or the content below it. On the home page, a one-finger swipe on the map scrolls the page until you zoom in.
+3. Not a git repository, so no commit was made.

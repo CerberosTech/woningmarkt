@@ -1,0 +1,10 @@
+{
+ "note": "Editorial, manually checked rates from each lender's OWN public rate page. No scraping; no automatic refresh until each lender's terms are verified. Geen advies. No affiliate links.",
+ "lenders": [
+  {"name":"ABN AMRO","source":"https://hypotheken.abnamro.nl/interest-rates/app/?lang=nl","checked":"2026-10-17","product":"Budget Hypotheek, NHG, 10 jaar vast (incl. 0,2% huisbankkorting)","ratesByEnergyLabel":{"A++++":4.23,"A+++":4.23,"A++":4.27,"A+":4.27,"A":4.27,"B":4.34,"C":4.39,"D":4.4,"E":4.43,"F":4.43,"G":4.43},"capturedBy":"Hestia rate tracker (/workspace/hestia/last_abn_rate.json)"},
+  {"name":"Rabobank","status":"pending terms check","source":null},
+  {"name":"ING","status":"pending terms check","source":null},
+  {"name":"de Volksbank (SNS/ASN/RegioBank)","status":"pending terms check","source":null},
+  {"name":"Obvion","status":"pending terms check","source":null}
+ ]
+}

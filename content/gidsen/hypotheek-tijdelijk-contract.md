@@ -1,6 +1,6 @@
 ---
 title: "Hypotheek met een tijdelijk contract: zo werkt het"
-description: Een hypotheek zonder vast contract in 2026: de intentieverklaring, het 3-jaarsgemiddelde, de Arbeidsmarktscan en de Perspectiefverklaring voor uitzendkrachten. Met rekenvoorbeeld.
+description: Een hypotheek zonder vast contract in 2026: intentieverklaring, 3-jaarsgemiddelde, Arbeidsmarktscan en Perspectiefverklaring. Met rekenvoorbeeld.
 lang: nl
 twin: mortgage-temporary-contract
 updated: 2026-10-17

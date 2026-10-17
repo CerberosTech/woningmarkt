@@ -148,3 +148,16 @@ test('privacy pages name GoatCounter and link its privacy policy', () => {
     assert.doesNotMatch(h, /geen statistiekdiensten|no analytics services/, p);
   }
 });
+
+test('map: every municipality has a ramp colour or the hatched "geen data" fill, with a legend entry', () => {
+  const geo = JSON.parse(fs.readFileSync(new URL('../data/geo-gemeente.json', import.meta.url)));
+  for (const p of ['kaart/', 'en/map/', '']) {
+    const h = pages.get(SITE + p);
+    const gm = h.match(/<g id="gm">([\s\S]*?)<\/g>/)[1];
+    const fills = [...gm.matchAll(/<path d="[^"]+" data-c="(GM\d{4})" fill="([^"]+)"/g)];
+    assert.equal(fills.length, geo.features.length, `one path per municipality on /${p}`);
+    for (const [, c, f] of fills) assert.match(f, /^(#[0-9a-f]{6}|url\(#hatch\))$/, `fill of ${c} on /${p}`);
+    assert.equal(h.split('<pattern id="hatch"').length - 1, 1, `one hatch pattern on /${p}`);
+    assert.match(h, /<li data-k="-1" class="nd">[\s\S]*?(Geen data|No data)/, `no-data legend entry on /${p}`);
+  }
+});

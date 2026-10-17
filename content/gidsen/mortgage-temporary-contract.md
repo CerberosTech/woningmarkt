@@ -1,6 +1,6 @@
 ---
 title: "Getting a Dutch mortgage on a temporary contract"
-description: A Dutch mortgage without a permanent contract in 2026: the declaration of intent, the 3-year average, the Labour Market Scan and the Perspective Statement for agency workers.
+description: A Dutch mortgage without a permanent contract in 2026: declaration of intent, 3-year average, Labour Market Scan and Perspective Statement.
 lang: en
 twin: hypotheek-tijdelijk-contract
 updated: 2026-10-17

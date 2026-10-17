@@ -1,6 +1,6 @@
 ---
 title: "Kosten koper: wat betaal je bovenop de koopsom?"
-description: Wat zijn kosten koper, hoeveel overdrachtsbelasting betaal je in 2026, wanneer geldt de startersvrijstelling en welke kosten komen uit offertes? Met rekenvoorbeeld.
+description: Wat is kosten koper, hoeveel overdrachtsbelasting betaal je in 2026, wanneer geldt de startersvrijstelling en wat komt uit offertes? Met rekenvoorbeeld.
 lang: nl
 twin: buying-costs-netherlands
 updated: 2026-10-17
@@ -61,6 +61,12 @@ Meestal niet. Je hypotheek mag niet hoger zijn dan {{ltvMax}} van de marktwaarde
 - [Huizenprijzen per gemeente op de kaart](/kaart/)
 - [Kosten koper berekenen](/kosten-koper-berekenen/)
 - [Maximale hypotheek berekenen](/maximale-hypotheek-berekenen/)
+
+# Disclaimer
+
+Deze gids is indicatief en geen financieel advies. Je persoonlijke situatie kan anders uitpakken. Laat je adviseren door een onafhankelijke hypotheekadviseur voordat je een beslissing neemt.
+
+Deze tekst is opgesteld met hulp van AI. De redactie heeft de regels en cijfers nagelopen tegen de bronnen hieronder (stand 17 oktober 2026).
 
 # Bronnen
 

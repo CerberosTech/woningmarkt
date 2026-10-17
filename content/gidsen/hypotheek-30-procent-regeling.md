@@ -1,6 +1,6 @@
 ---
 title: "Hypotheek met de 30%-regeling: wat verandert er in 2027?"
-description: Hoe werkt de 30%-regeling (expatregeling) in 2026, wat verandert er per 2027 en wat betekent dat voor je hypotheek? Met rekenvoorbeeld en wat nog onzeker is.
+description: Hoe werkt de 30%-regeling in 2026, wat verandert er per 2027 en wat betekent dat voor je hypotheek? Met rekenvoorbeeld en wat nog onzeker is.
 lang: nl
 twin: 30-percent-ruling-mortgage
 updated: 2026-10-17

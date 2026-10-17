@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -35,6 +35,25 @@ jobs:
         run: node --test
       - name: Build
         run: node build.mjs
+      - name: Commit refreshed data back (only when figures changed, not just fetchedAt)
+        if: github.event_name != 'push' && steps.fetch.outcome == 'success'
+        run: |
+          changed=$(node -e "
+            const fs=require('fs'),cp=require('child_process');
+            const strip=t=>JSON.stringify(JSON.parse(t),(k,v)=>k==='fetchedAt'?undefined:v);
+            let c=[];for(const f of fs.readdirSync('data').filter(f=>f.endsWith('.json'))){
+              let old='';try{old=cp.execSync('git show HEAD:data/'+f).toString()}catch{}
+              if(!old||strip(old)!==strip(fs.readFileSync('data/'+f,'utf8')))c.push('data/'+f)}
+            console.log(c.join(' '))")
+          if [ -n "$changed" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add $changed
+            git commit -m "data: refresh from CBS / ECB-DNB ($(date -u +%F)) [skip ci]"
+            git push
+          else
+            echo "No figure changes; nothing to commit."
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

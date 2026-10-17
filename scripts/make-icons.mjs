@@ -8,18 +8,19 @@ const b = await launch();
 const render = async (w, h, html, transparent = false) => { const t = await b.open(w, h, { transparent }); await t.goto('data:text/html;charset=utf-8,' + encodeURIComponent(html)); const png = await t.shot(); await t.close(); return png; };
 const iconPage = s => `<html><body style="margin:0"><div style="width:${s}px;height:${s}px">${icon.replace('<svg ', `<svg width="${s}" height="${s}" `)}</div></body></html>`;
 const png32 = await render(32, 32, iconPage(32), true);
-fs.writeFileSync('src/apple-touch-icon.png', await render(180, 180, iconPage(180).replace('rx="6"', 'rx="0"')));
+fs.writeFileSync('src/apple-touch-icon.png', await render(180, 180, iconPage(180).replace('rx="7"', 'rx="0"')));
 const ico = Buffer.alloc(22); ico.writeUInt16LE(0, 0); ico.writeUInt16LE(1, 2); ico.writeUInt16LE(1, 4);
 ico.writeUInt8(32, 6); ico.writeUInt8(32, 7); ico.writeUInt16LE(1, 10); ico.writeUInt16LE(32, 12); ico.writeUInt32LE(png32.length, 14); ico.writeUInt32LE(22, 18);
 fs.writeFileSync('src/favicon.ico', Buffer.concat([ico, png32]));
-const og = `<html><head><style>
-body{margin:0;width:1200px;height:630px;background:#fff;font-family:system-ui,-apple-system,sans-serif;color:#14272d;display:grid;grid-template-columns:640px 560px;overflow:hidden}
-.t{padding:78px 0 0 72px}.b{display:flex;align-items:center;gap:18px;font:700 34px Charter,Georgia,serif}
-h1{font:700 64px/1.08 Charter,Georgia,serif;margin:56px 0 22px;letter-spacing:-.01em}p{font-size:28px;line-height:1.35;color:#4b5d62;margin:0}
-.m{background:#f1f6f5;display:flex;align-items:center;justify-content:center}.m svg{height:600px;width:auto}
-#gm path{stroke:#fff;stroke-width:.35}#pv path{fill:none;stroke:#14272d;stroke-width:.9}
-.bar{position:absolute;left:72px;bottom:64px;width:120px;height:6px;background:#0d6e74}
-</style></head><body><div class="t"><div class="b">${icon.replace('<svg ', '<svg width="54" height="54" ')}Woningmarkt NL</div>
+const font = `@font-face{font-family:B;src:url(data:font/woff2;base64,${fs.readFileSync('src/fonts/bricolage.woff2').toString('base64')}) format("woff2");font-weight:200 800}`;
+const og = `<html><head><style>${font}
+body{margin:0;width:1200px;height:630px;background:#0e1a2e;font-family:B,system-ui,sans-serif;color:#eef2f8;display:grid;grid-template-columns:660px 540px;overflow:hidden}
+.t{padding:74px 0 0 76px}.b{display:flex;align-items:center;gap:16px;font-weight:760;font-size:34px;letter-spacing:-.03em}
+h1{font-weight:760;font-size:74px;line-height:1.02;margin:64px 0 26px;letter-spacing:-.04em}p{font-size:28px;line-height:1.35;color:#b3c0d3;margin:0}
+.m{display:flex;align-items:center;justify-content:center;background:radial-gradient(120% 90% at 50% 45%,#13233d,#0e1a2e 70%)}.m svg{height:600px;width:auto}
+#gm path{stroke:#0e1a2e;stroke-width:.5}#pv path{fill:none;stroke:rgba(238,242,248,.5);stroke-width:.9}#hl{display:none}
+.bar{position:absolute;left:76px;bottom:66px;width:120px;height:6px;border-radius:3px;background:#ff7a1a}
+</style></head><body><div class="t"><div class="b">${icon.replace('<svg ', '<svg width="52" height="52" ')}Woningmarkt NL</div>
 <h1>Huizenprijzen per gemeente</h1><p>Kaart, trends en rekenhulpen met officiële CBS-cijfers.</p><p style="margin-top:14px">House prices by municipality, in English too.</p><div class="bar"></div></div>
 <div class="m">${map}</div></body></html>`;
 fs.writeFileSync('src/og-image.png', await render(1200, 630, og));

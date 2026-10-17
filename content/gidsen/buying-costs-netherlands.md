@@ -1,6 +1,6 @@
 ---
 title: "Buying costs in the Netherlands (kosten koper) explained"
-description: What does kosten koper mean, how much transfer tax do you pay in 2026, who gets the first-time buyer exemption and which costs come from quotes? With a worked example.
+description: What kosten koper means, how much transfer tax you pay in 2026, who gets the first-time buyer exemption and which costs come from quotes. With an example.
 lang: en
 twin: kosten-koper
 updated: 2026-10-17
@@ -61,6 +61,12 @@ Usually not. Your mortgage may not exceed {{ltvMax}} of the market value of the 
 - [House prices by municipality on the map](/en/map/)
 - [Buying costs calculator](/en/buying-costs-calculator/)
 - [Mortgage calculator](/en/mortgage-calculator/)
+
+# Disclaimer
+
+This guide is indicative and not financial advice. Your own situation may work out differently. Talk to an independent mortgage adviser before you decide.
+
+This text was written with AI assistance. The editors checked the rules and figures against the sources below (as of 17 October 2026).
 
 # Sources
 

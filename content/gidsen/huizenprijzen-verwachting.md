@@ -1,6 +1,6 @@
 ---
 title: "Huizenprijzen verwachting 2026-2027: DNB en banken"
-description: Hoe de huizenprijzen zich volgens CBS en Kadaster ontwikkelen, wat DNB, Rabobank en ABN AMRO verwachten voor 2026 en 2027 (met datum) en waar de regionale verschillen zitten.
+description: De huizenprijzen volgens CBS en Kadaster, en wat DNB, Rabobank en ABN AMRO verwachten voor 2026 en 2027, met datum en regionale verschillen.
 lang: nl
 twin: house-prices-netherlands-forecast
 updated: 2026-10-17

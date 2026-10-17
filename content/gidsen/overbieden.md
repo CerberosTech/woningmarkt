@@ -1,6 +1,6 @@
 ---
 title: "Overbieden op een huis: hoe vaak en hoeveel?"
-description: Hoe vaak wordt er in 2026 boven de vraagprijs geboden, wat gebeurt er als de taxatie lager uitvalt dan je bod en hoeveel eigen geld heb je dan nodig? Met rekenvoorbeeld.
+description: Hoe vaak wordt er in 2026 boven de vraagprijs geboden, wat als de taxatie lager is dan je bod en hoeveel eigen geld heb je nodig? Met rekenvoorbeeld.
 lang: nl
 twin: overbidding-netherlands
 updated: 2026-10-17

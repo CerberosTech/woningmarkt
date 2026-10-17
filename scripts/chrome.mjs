@@ -31,7 +31,7 @@ export async function launch() {
   });
 
   // stubs: { urlPattern: jsBody } answers matching requests locally (e.g. third-party scripts) instead of going to the network.
-  async function open(width, height, { mobile = false, transparent = false, scale = 1, stubs = {} } = {}) {
+  async function open(width, height, { mobile = false, transparent = false, scale = 1, stubs = {}, scheme = 'light' } = {}) {
     const { targetId } = await send('Target.createTarget', { url: 'about:blank' });
     const { sessionId } = await send('Target.attachToTarget', { targetId, flatten: true });
     const s = (m, p) => send(m, p, sessionId);
@@ -51,6 +51,7 @@ export async function launch() {
     if (Object.keys(stubs).length) await s('Fetch.enable', { patterns: Object.keys(stubs).map(urlPattern => ({ urlPattern, requestStage: 'Request' })) });
     await s('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: scale, mobile });
     if (mobile) await s('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
+    if (scheme) await s('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: scheme }] });
     if (transparent) await s('Emulation.setDefaultBackgroundColorOverride', { color: { r: 0, g: 0, b: 0, a: 0 } });
     const waitFor = method => new Promise(resolve => { const l = m => { if (m.sessionId === sessionId && m.method === method) { listeners.delete(l); resolve(m.params); } }; listeners.add(l); });
     const tab = {
@@ -68,11 +69,14 @@ export async function launch() {
         await Promise.race([loaded, new Promise((_, rej) => setTimeout(() => rej(new Error(`${url}: load timeout`)), 20000))]);
         await tab.eval('new Promise(r => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 60))))');
       },
+      async move(x, y) { await s('Input.dispatchMouseEvent', { type: 'mouseMoved', x, y }); },
       async click(x, y) {
         for (const type of ['mousePressed', 'mouseReleased']) await s('Input.dispatchMouseEvent', { type, x, y, button: 'left', clickCount: 1 });
       },
       async shot({ fullPage = false } = {}) {
-        const h = fullPage ? Math.min(12000, Math.ceil(await tab.eval('document.documentElement.scrollHeight'))) : height;
+        // Full-page captures grow the viewport; pin viewport-height units first so the page keeps its real layout.
+        if (fullPage) await tab.eval(`document.documentElement.style.setProperty('--vh', '${height}px'); new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))`);
+        const h = fullPage ? Math.min(14000, Math.ceil(await tab.eval('document.documentElement.scrollHeight'))) : height;
         const y = fullPage ? 0 : await tab.eval('window.scrollY');
         const { data } = await s('Page.captureScreenshot', { format: 'png', captureBeyondViewport: fullPage, clip: { x: 0, y, width, height: h, scale: 1 } });
         return Buffer.from(data, 'base64');

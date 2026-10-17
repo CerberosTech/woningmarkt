@@ -1,6 +1,6 @@
 ---
 title: "NHG-hypotheek 2026: grens, kosten en wat je ermee opschiet"
-description: Wat is de Nationale Hypotheek Garantie, wat is de NHG-grens in 2026, wat kost het en wat is het voordeel? Met rekenvoorbeeld op basis van de gemiddelde huizenprijs.
+description: Wat is de Nationale Hypotheek Garantie, wat is de NHG-grens in 2026, wat kost het en wat levert het op? Met rekenvoorbeeld bij de gemiddelde prijs.
 lang: nl
 twin: nhg-mortgage-explained
 updated: 2026-10-17

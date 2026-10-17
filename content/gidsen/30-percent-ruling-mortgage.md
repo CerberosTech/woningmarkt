@@ -1,6 +1,6 @@
 ---
 title: "The 30% ruling and your mortgage: 2026 and 2027 rules"
-description: How the 30% ruling (expat scheme) works in 2026, what changes from 2027 and what it means for your mortgage. With a worked example and what is still uncertain.
+description: How the 30% ruling works in 2026, what changes from 2027 and what it means for your Dutch mortgage. With a worked example and open questions.
 lang: en
 twin: hypotheek-30-procent-regeling
 updated: 2026-10-17

@@ -1,6 +1,6 @@
 ---
 title: "Buying a house in the Netherlands as an expat (2026)"
-description: Can foreigners buy property in the Netherlands? What you need, what it costs in 2026 and how long it takes from viewing to the notary. With a worked example.
+description: Can foreigners buy property in the Netherlands? What you need, what it costs in 2026 and how long it takes from viewing to notary. With an example.
 lang: en
 twin: huis-kopen-als-expat
 updated: 2026-10-17

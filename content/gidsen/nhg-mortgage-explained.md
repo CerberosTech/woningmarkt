@@ -1,6 +1,6 @@
 ---
 title: "NHG mortgage explained: 2026 limit, fee and benefit"
-description: What the Dutch National Mortgage Guarantee is, the NHG limit in 2026, what it costs and what you gain. With a worked example at the average Dutch house price.
+description: What the Dutch National Mortgage Guarantee is, the 2026 NHG limit, what it costs and what you gain. With an example at the average house price.
 lang: en
 twin: nhg-hypotheek
 updated: 2026-10-17

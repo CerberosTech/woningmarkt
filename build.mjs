@@ -126,6 +126,31 @@ function sourceLine(key, lang) {
 }
 const sourceDate = key => S[key]?.modified ? cbsDate(key) : key === 'ecb' ? ratesDate : key === 'lenders' ? lenders.lenders.map(l => l.checked).filter(Boolean).sort().at(-1) : null;
 const stamp = (lang, table = '83625NED') => `<p class="stamp">${T(lang)(`Laatste officiële CBS-cijfers (bijgewerkt ${time(S[table].modified, lang)})`, `Latest official CBS figures (updated ${time(S[table].modified, lang)})`)}</p>`;
+// Sister sites. Plain home-page links only: no rel, no query, no extra copy.
+const SISTER_TOOLS = {
+  nl: {
+    heading: 'Meer gratis tools van CerberosTech',
+    links: [
+      ['https://cerberostech.github.io/stroomprijs/', 'Stroomprijs vandaag per uur'],
+      ['https://cerberostech.github.io/belastingcalculator/', 'Belastingcalculator 2026'],
+      ['https://cerberostech.github.io/isde-checker/', 'ISDE-subsidie warmtepomp checker'],
+      ['https://cerberostech.github.io/deadorsupported/', 'DeadOrSupported: wanneer stopt de support van je apparaat'],
+    ],
+  },
+  en: {
+    heading: 'More free tools from CerberosTech',
+    links: [
+      ['https://cerberostech.github.io/stroomprijs/en/', 'Dutch electricity price today (hourly)'],
+      ['https://cerberostech.github.io/belastingcalculator/en/', 'Dutch tax calculator 2026'],
+      ['https://cerberostech.github.io/isde-checker/en/', 'ISDE heat pump subsidy checker (NL)'],
+      ['https://cerberostech.github.io/deadorsupported/', 'DeadOrSupported: device support end dates'],
+    ],
+  },
+};
+const sisterTools = lang => {
+  const { heading, links } = SISTER_TOOLS[lang];
+  return `<div class="foot-more"><h2 class="foot-h">${esc(heading)}</h2><ul class="foot-nav">${links.map(([href, label]) => `<li><a href="${esc(href)}">${esc(label)}</a></li>`).join('')}</ul></div>`;
+};
 const cbsCaveat = lang => `<p class="note">${T(lang)('Het CBS waarschuwt: gemiddelde verkoopprijzen zijn geen prijsindex. Het gemiddelde verandert ook als er een andere mix van woningen wordt verkocht, bijvoorbeeld meer appartementen of grotere huizen. Voor de echte prijsontwikkeling gebruikt het CBS de prijsindex (tabel 85792NED).', 'CBS warns that average sale prices are not a price index. The average also moves when a different mix of homes is sold, for example more apartments or larger houses. For the true price trend, CBS uses its price index (table 85792NED).')}</p>`;
 
 // ---------------------------------------------------------------- page shell
@@ -198,6 +223,7 @@ ${[...crumbLd, ...schema].map(jsonLd).join('')}${head}
 <p>${t('Onafhankelijke site. Niet verbonden aan het CBS, DNB, de ECB of een geldverstrekker.', 'Independent site. Not affiliated with CBS, DNB, the ECB or any lender.')}</p>
 <ul class="foot-nav"><li><a href="${u(ROUTES.methods[lang])}">${t('Methode en bronnen', 'Methods and sources')}</a></li><li><a href="${u(ROUTES.guides[lang])}">${t('Gidsen', 'Guides')}</a></li><li><a href="${u(ROUTES.privacy[lang])}">Privacy</a></li><li><a href="${u(ROUTES.disclosure[lang])}">${t('Disclosure', 'Disclosure')}</a></li>${both ? `<li>${switcher('-footer')}</li>` : ''}</ul></div>
 ${sources.length ? `<div class="foot-src"><h2 class="foot-h">${t('Bronnen op deze pagina', 'Sources on this page')}</h2><ul class="sources">${sources.map(s => `<li>${sourceLine(s, lang)}</li>`).join('')}</ul></div>` : ''}
+${sisterTools(lang)}
 </div></footer><script src="${BASE}/js/site.js" defer></script>${scripts}${ANALYTICS}</body></html>`;
   write(self === '404.html' ? '404.html' : `${self}index.html`, html);
   if (sitemap && !robots) PAGES.push({ route, lang, both, lastmod: mod });

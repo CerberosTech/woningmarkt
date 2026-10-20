@@ -537,6 +537,10 @@ table.cmp th.ca { padding-right: .6rem; } table.cmp th.cb { padding-left: .6rem;
 .nfa { color: var(--on-night); }
 .foot-nav { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; margin: 1.2rem 0 0; }
 .site-foot .lang { border: 0; padding: 0; font-weight: 500; text-decoration: underline; text-decoration-color: var(--night-line); }
+.foot-more { grid-column: 1 / -1; min-width: 0; }
+.foot-more .foot-nav { display: block; margin: 0; }
+.foot-more li { margin: 0 0 .4rem; max-width: 100%; }
+.foot-more a { overflow-wrap: anywhere; }
 
 /* ------------------------------------------------------------------ wider screens */
 @media (min-width: 40rem) {

@@ -1,0 +1,119 @@
+# Pull-request and main-branch check. Modeled on CerberosTech/deadorsupported
+# (.github/workflows/pr-check.yml): read-only checkout, Node 20, build, then a dist check.
+# scripts/check.mjs is intentionally not run. It starts Chrome through scripts/chrome.mjs
+# (--headless=new) and only looks for a browser at a fixed list of paths. GitHub-hosted
+# ubuntu-latest does not provide Chrome or Chromium there, and the script then clicks the
+# map at pixel coordinates across every page at two widths. That pass is layout-sensitive
+# and not reliable enough for this job.
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci
+          elif [ -f package.json ]; then npm install
+          else echo "No package.json; the site has zero npm dependencies."
+          fi
+      - name: Build
+        run: node build.mjs
+      - name: Test
+        run: node --test
+      - name: Footer link count
+        run: |
+          node --input-type=module <<'EOF'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import crypto from 'node:crypto';
+
+          const TOKEN = '7050a14134a33070f25080bb4f9f5edd.txt';
+          const NL = [
+            ['https://cerberostech.github.io/stroomprijs/', 'Stroomprijs vandaag per uur'],
+            ['https://cerberostech.github.io/belastingcalculator/', 'Belastingcalculator 2026'],
+            ['https://cerberostech.github.io/isde-checker/', 'ISDE-subsidie warmtepomp checker'],
+            ['https://cerberostech.github.io/deadorsupported/', 'DeadOrSupported: wanneer stopt de support van je apparaat'],
+          ];
+          const EN = [
+            ['https://cerberostech.github.io/stroomprijs/en/', 'Dutch electricity price today (hourly)'],
+            ['https://cerberostech.github.io/belastingcalculator/en/', 'Dutch tax calculator 2026'],
+            ['https://cerberostech.github.io/isde-checker/en/', 'ISDE heat pump subsidy checker (NL)'],
+            ['https://cerberostech.github.io/deadorsupported/', 'DeadOrSupported: device support end dates'],
+          ];
+          const HEAD = {
+            nl: 'Meer gratis tools van CerberosTech',
+            en: 'More free tools from CerberosTech',
+          };
+          const count = (hay, needle) => hay.split(needle).length - 1;
+          const sha = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+          const walk = (dir, acc = []) => {
+            for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+              const p = path.join(dir, ent.name);
+              if (ent.isDirectory()) walk(p, acc);
+              else acc.push(p);
+            }
+            return acc;
+          };
+
+          if (!fs.existsSync('dist')) {
+            console.error('dist/ is missing; run node build.mjs first');
+            process.exit(1);
+          }
+          const html = walk('dist').filter(file => file.endsWith('.html') && path.basename(file) !== TOKEN);
+          const problems = [];
+          let ok = 0;
+          const byLang = {};
+          for (const file of html) {
+            const text = fs.readFileSync(file, 'utf8');
+            const lang = (text.match(/<html lang="([^"]+)"/) || [])[1];
+            byLang[lang] = (byLang[lang] || 0) + 1;
+            if (lang !== 'nl' && lang !== 'en') {
+              problems.push(`${file}: unexpected lang ${lang || '(missing)'}`);
+              continue;
+            }
+            const links = lang === 'en' ? EN : NL;
+            const other = (lang === 'en' ? NL : EN).filter(([url]) => url !== 'https://cerberostech.github.io/deadorsupported/');
+            const hrefCounts = links.map(([url]) => count(text, `href="${url}"`));
+            const labelCounts = links.map(([, label]) => count(text, label));
+            const heading = count(text, HEAD[lang]);
+            const otherHrefs = other.map(([url]) => count(text, `href="${url}"`));
+            const badTags = [...text.matchAll(/<a\b[^>]*href="https:\/\/cerberostech\.github\.io\/(?:stroomprijs|belastingcalculator|isde-checker|deadorsupported)[^"]*"[^>]*>/g)]
+              .map(match => match[0])
+              .filter(tag => /\srel=/.test(tag) || /[?&]/.test(tag));
+            const good = hrefCounts.every(n => n === 1) && labelCounts.every(n => n === 1) && heading === 1 && otherHrefs.every(n => n === 0) && badTags.length === 0;
+            if (good) ok += 1;
+            else problems.push(`${file}: hrefs=${hrefCounts.join(',')} labels=${labelCounts.join(',')} heading=${heading} other=${otherHrefs.join(',')} badTags=${badTags.length}`);
+          }
+
+          const srcToken = path.join('src', TOKEN);
+          const distToken = path.join('dist', TOKEN);
+          const srcHash = sha(srcToken);
+          const distHash = fs.existsSync(distToken) ? sha(distToken) : null;
+          if (distHash !== srcHash) problems.push(`token file changed or missing: src=${srcHash} dist=${distHash}`);
+          if (html.some(file => file.endsWith(TOKEN))) problems.push('verification token file was counted as HTML');
+
+          console.log(`html pages: ${html.length} (nl ${byLang.nl || 0}, en ${byLang.en || 0})`);
+          console.log(`pages with all 4 links exactly once: ${ok}`);
+          console.log(`token ${TOKEN}: ${distHash === srcHash ? 'unchanged' : 'CHANGED'} ${distHash || 'missing'}`);
+          if (!html.length || ok !== html.length || problems.length) {
+            for (const problem of problems) console.error(problem);
+            process.exit(1);
+          }
+          EOF

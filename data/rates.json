@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-10-17T12:09:05.468Z",
+ "fetchedAt": "2026-10-23T10:06:55.491Z",
  "source": {
   "name": "ECB Data Portal – MFI interest rate statistics (MIR), Netherlands, compiled by De Nederlandsche Bank",
   "url": "https://data.ecb.europa.eu/data/datasets/MIR",
@@ -13,7 +13,6 @@
     "nl": "Variabel / tot 1 jaar vast",
     "en": "Variable / up to 1 year fixed"
    },
-   "ecbTitle": "loans to households for house purchase with a variable rate and an interest rate fixation period of up to one year (new business)",
    "key": "MIR.M.NL.B.A2C.F.R.A.2250.EUR.N",
    "data": [
     {
@@ -503,7 +502,6 @@
     "nl": "1–5 jaar vast",
     "en": "1–5 years fixed"
    },
-   "ecbTitle": "loans to households for house purchase with an interest rate fixation period of over one & up to five years (new business)",
    "key": "MIR.M.NL.B.A2C.I.R.A.2250.EUR.N",
    "data": [
     {
@@ -993,7 +991,6 @@
     "nl": "5–10 jaar vast",
     "en": "5–10 years fixed"
    },
-   "ecbTitle": "loans to households for house purchase with an interest rate fixation period of over five & up to ten years (new business)",
    "key": "MIR.M.NL.B.A2C.O.R.A.2250.EUR.N",
    "data": [
     {
@@ -1483,7 +1480,6 @@
     "nl": "Meer dan 10 jaar vast",
     "en": "Over 10 years fixed"
    },
-   "ecbTitle": "loans to households for house purchase with an interest rate fixation period of over ten years (new business)",
    "key": "MIR.M.NL.B.A2C.P.R.A.2250.EUR.N",
    "data": [
     {
@@ -1973,7 +1969,6 @@
     "nl": "Alle looptijden",
     "en": "All fixation periods"
    },
-   "ecbTitle": "loans to households for house purchase (new business)",
    "key": "MIR.M.NL.B.A2C.A.R.A.2250.EUR.N",
    "data": [
     {

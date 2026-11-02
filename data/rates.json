@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-10-23T10:06:55.491Z",
+ "fetchedAt": "2026-11-02T13:32:55.512Z",
  "source": {
   "name": "ECB Data Portal – MFI interest rate statistics (MIR), Netherlands, compiled by De Nederlandsche Bank",
   "url": "https://data.ecb.europa.eu/data/datasets/MIR",
@@ -15,10 +15,6 @@
    },
    "key": "MIR.M.NL.B.A2C.F.R.A.2250.EUR.N",
    "data": [
-    {
-     "month": "2016-09",
-     "rate": 2.05
-    },
     {
      "month": "2016-10",
      "rate": 1.97
@@ -494,6 +490,10 @@
     {
      "month": "2026-08",
      "rate": 4.3
+    },
+    {
+     "month": "2026-09",
+     "rate": 4.36
     }
    ]
   },
@@ -504,10 +504,6 @@
    },
    "key": "MIR.M.NL.B.A2C.I.R.A.2250.EUR.N",
    "data": [
-    {
-     "month": "2016-09",
-     "rate": 2.14
-    },
     {
      "month": "2016-10",
      "rate": 2.06
@@ -983,6 +979,10 @@
     {
      "month": "2026-08",
      "rate": 4.18
+    },
+    {
+     "month": "2026-09",
+     "rate": 4.2
     }
    ]
   },
@@ -993,10 +993,6 @@
    },
    "key": "MIR.M.NL.B.A2C.O.R.A.2250.EUR.N",
    "data": [
-    {
-     "month": "2016-09",
-     "rate": 2.46
-    },
     {
      "month": "2016-10",
      "rate": 2.37
@@ -1472,6 +1468,10 @@
     {
      "month": "2026-08",
      "rate": 3.93
+    },
+    {
+     "month": "2026-09",
+     "rate": 3.87
     }
    ]
   },
@@ -1482,10 +1482,6 @@
    },
    "key": "MIR.M.NL.B.A2C.P.R.A.2250.EUR.N",
    "data": [
-    {
-     "month": "2016-09",
-     "rate": 2.98
-    },
     {
      "month": "2016-10",
      "rate": 2.92
@@ -1961,6 +1957,10 @@
     {
      "month": "2026-08",
      "rate": 3.38
+    },
+    {
+     "month": "2026-09",
+     "rate": 3.28
     }
    ]
   },
@@ -1971,10 +1971,6 @@
    },
    "key": "MIR.M.NL.B.A2C.A.R.A.2250.EUR.N",
    "data": [
-    {
-     "month": "2016-09",
-     "rate": 2.5
-    },
     {
      "month": "2016-10",
      "rate": 2.4
@@ -2450,6 +2446,10 @@
     {
      "month": "2026-08",
      "rate": 3.94
+    },
+    {
+     "month": "2026-09",
+     "rate": 3.9
     }
    ]
   }
